@@ -17,7 +17,7 @@ pip install -r requirements.txt
 ```
 Then export project to python path:
 ```
-export PYTHONPATH=$PATH_TO_REPO/nade
+export PYTHONPATH=$PYTHONPATH:/$PATH_TO_REPO/nade
 ```
 To test the scripts, run `pytest` in the root directory, you may wish to
 install `pytest` separately

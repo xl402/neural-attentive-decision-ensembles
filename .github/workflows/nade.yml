@@ -9,6 +9,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Checkout node repo
+      uses: actions/checkout@v2
+      with:
+        repository: xl402/neural-oblivious-decision-ensembles
+        path: neural-oblivious-decision-ensembles
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -20,5 +25,6 @@ jobs:
         pip install -r requirements.txt
     - name: Test with pytest
       run: |
+        export PYTHONPATH=/home/runner/work/neural-oblivious-decision-ensembles/neural-oblivious-decision-ensembles
         export PYTHONPATH=/home/runner/work/neural-attentive-decision-ensembles/neural-attentive-decision-ensembles
         pytest -v

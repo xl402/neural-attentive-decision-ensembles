@@ -13,7 +13,7 @@ popular tree-based methods such as lightgbm.
 
 Time-series tabular data remains a challenge within the ML community; even most competitive tree-based
 models rely on forward-looking training, i.e. the splitting points are decided
-using the entire training data, thereby increasing the generalisation error. This work focuses on combining NODE with a attention-based memory compressor, so NODE can be trained using time-series fitting methods (such as LSTM), while having a large memory capacity.
+using the entire training data, thereby increasing the generalisation error. This work focuses on combining NODE with an attention-based memory compressor, so NODE can be trained using time-series fitting methods (such as LSTM), while having a large memory capacity.
 
 
 ### Initial Setup

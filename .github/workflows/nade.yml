@@ -27,5 +27,5 @@ jobs:
         ls neural-oblivious-decision-ensembles
         export HOME_DIR=/home/runner/work/neural-attentive-decision-ensembles/neural-attentive-decision-ensembles
         export PYTHONPATH=$HOME_DIR/neural-oblivious-decision-ensembles/
-        export PYTHONPATH=$HOME_DIR
+        export PYTHONPATH=$PYTHONPATH:/$HOME_DIR
         pytest -v test

@@ -4,6 +4,36 @@ from tensorflow.keras.layers import MultiHeadAttention
 from node.networks.layer import ObliviousDecisionTree as ODT
 
 
+class AttentiveDecisionTree(tf.keras.layers.Layer):
+    def __init__(self,
+                 units=1,
+                 n_trees=3,
+                 tree_depth=4,
+                 num_heads=3,
+                 memory_size=2,
+                 threshold_init_beta=1):
+
+        super(AttentiveDecisionTree, self).__init__()
+        self.memory_size = memory_size
+        self.num_heads = num_heads
+        self.units = units,
+        self.n_trees = n_trees
+        self.tree_depth = tree_depth
+        self.threshold_init_beta = threshold_init_beta
+
+        self.memory_block = AttentionMemory(memory_size, num_heads)
+        self.tree = ODT(n_trees=n_trees,
+                        depth=tree_depth,
+                        units=units,
+                        threshold_init_beta=threshold_init_beta)
+
+    def call(self, inputs, training=None):
+        x_hat = self.memory_block(inputs)
+        x = inputs + x_hat
+        h = self.tree(x)
+        return h
+
+
 class AttentionMemory(tf.keras.layers.Layer):
     def __init__(self,
                  memory_size=2,

@@ -64,6 +64,7 @@ class AttentionMemory(tf.keras.layers.Layer):
         memory = self._broadcast_memory_along_batch(inputs)
         m = tf.concat([x, memory], axis=1)
         m = self.attention(m, m)
+        # TODO: need to use positional encoding for next step
         self.memory.assign(m[-1, 1:, :])
         x = m[:, 0, :]
         return x

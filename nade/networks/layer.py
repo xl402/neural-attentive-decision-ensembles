@@ -10,7 +10,7 @@ class AttentiveDecisionTree(tf.keras.layers.Layer):
                  n_trees=3,
                  tree_depth=4,
                  num_heads=3,
-                 memory_size=2,
+                 memory_size=5,
                  threshold_init_beta=1):
 
         super(AttentiveDecisionTree, self).__init__()
@@ -42,7 +42,9 @@ class AttentionMemory(tf.keras.layers.Layer):
         super().__init__()
         self.num_heads = num_heads
         self.memory_size = memory_size
-        self.attention = MultiHeadAttention(self.num_heads, key_dim=2)
+        self.attention = MultiHeadAttention(num_heads,
+                                            key_dim=2,
+                                            attention_axes=1)
 
     def build(self, input_shape):
         memory_initializer = tf.keras.initializers.random_uniform()
@@ -65,3 +67,17 @@ class AttentionMemory(tf.keras.layers.Layer):
         self.memory.assign(m[-1, 1:, :])
         x = m[:, 0, :]
         return x
+
+
+if __name__=='__main__':
+    x = tf.random.uniform((100000, 2))
+    y = x + 2
+    layer = AttentionMemory()
+    inputs = tf.keras.Input(2)
+    outputs =layer(inputs)
+    model = tf.keras.Model(inputs=inputs, outputs=outputs)
+    outputs = layer(inputs)
+
+    model.compile(optimizer='adam',
+                  loss='mse')
+    model.fit(x, y, batch_size=1)
